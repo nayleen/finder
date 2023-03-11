@@ -6,6 +6,7 @@ services:
         container_name: php
         environment:
             - PHP_EXTENSION_XDEBUG=1
+            - XDEBUG_MODE=off
         init: true
         volumes:
             - ./:/usr/src/app

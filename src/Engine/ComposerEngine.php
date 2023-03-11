@@ -8,6 +8,7 @@ use Composer\Autoload\ClassLoader;
 
 /**
  * @template T of object
+ * @template-extends AbstractEngine<T>
  */
 final class ComposerEngine extends AbstractEngine
 {
@@ -24,7 +25,7 @@ final class ComposerEngine extends AbstractEngine
     }
 
     /**
-     * @return iterable<class-string>
+     * @return iterable<class-string<T>>
      */
     protected function classes(): iterable
     {
@@ -33,6 +34,7 @@ final class ComposerEngine extends AbstractEngine
             $classes = array_keys($classLoader->getClassMap());
 
             foreach ($classes as $class) {
+                /** @var class-string<T> $class */
                 yield $class;
             }
         }
