@@ -11,7 +11,7 @@ use stdClass;
 #[Attribute(Attribute::TARGET_CLASS)]
 class TestAttribute
 {
-    public function __construct(private ?string $value = null)
+    public function __construct(public ?string $value = null)
     {
     }
 }

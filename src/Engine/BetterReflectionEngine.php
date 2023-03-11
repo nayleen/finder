@@ -10,6 +10,10 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
+/**
+ * @template T of object
+ * @template-extends AbstractEngine<T>
+ */
 final class BetterReflectionEngine extends AbstractEngine
 {
     public function __construct(private readonly SourceLocator $sourceLocator)
@@ -17,7 +21,7 @@ final class BetterReflectionEngine extends AbstractEngine
     }
 
     /**
-     * @return Generator<class-string>
+     * @return Generator<class-string<T>>
      */
     protected function classes(): iterable
     {
@@ -27,7 +31,7 @@ final class BetterReflectionEngine extends AbstractEngine
         foreach ($this->sourceLocator->locateIdentifiersByType($reflector, $identifierType) as $classReflection) {
             assert($classReflection instanceof ReflectionClass);
 
-            /** @var class-string $class */
+            /** @var class-string<T> $class */
             $class = (string) $classReflection;
             yield $class;
         }
