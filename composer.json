@@ -7,7 +7,8 @@
         "nayleen/attribute": "^3"
     },
     "require-dev": {
-        "nayleen/development": "^2@dev",
+        "nayleen/codestandard": "dev-latest",
+        "nayleen/development-dependencies": "^3",
         "roave/better-reflection": "^6",
         "roave/security-advisories": "dev-latest"
     },
@@ -26,7 +27,8 @@
     },
     "config": {
         "allow-plugins": {
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true
         },
         "lock": false,
         "preferred-install": {
