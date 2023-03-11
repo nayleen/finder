@@ -2,8 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Nayleen\Finder\Expectation;
+namespace Nayleen\Finder\Expectation\Combinator;
 
+use Nayleen\Finder\Expectation\CallableExpectation;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

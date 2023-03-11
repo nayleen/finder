@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Nayleen\Finder\Expectation;
 
 use Attribute;
+use Nayleen\Finder\Expectation\Combinator\Not;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

@@ -18,9 +18,9 @@ Currently supported `Engine` implementations:
 `Expectation`s filter the class strings according to certain criteria. They're chainable, composable and negatable. You can
 (and should) write your own `Expectation`s depending on your requirements in class filtering.
 
-Building blocks:
-- `Composed` - chains two expectation (like boolean `AND`s)
-- `Not` - negates a wrapped expectation
+Building blocks (located in `Nayleen\Finder\Expectation` sub-namespaces):
+- `Combinator\Composed` - chains two expectation (like boolean `AND`s)
+- `Combinator\Not` - negates a wrapped expectation
 
 Concrete implementations:
 - `CallableExpectation` - wraps a callable with signature: `callable(class-string): bool`
