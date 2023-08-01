@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Nayleen\Finder\Expectation;
+namespace Nayleen\Finder;
 
 interface Expectation
 {

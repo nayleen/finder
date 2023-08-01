@@ -4,9 +4,7 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder\Expectation;
 
-use Safe\Exceptions\SplException;
-
-use function Safe\class_implements;
+use Nayleen\Finder\Expectation;
 
 final class ImplementsInterface implements Expectation
 {
@@ -15,17 +13,19 @@ final class ImplementsInterface implements Expectation
      */
     public function __construct(private readonly string $interface)
     {
+        assert(interface_exists($this->interface));
     }
 
     public function __invoke(string $class): bool
     {
-        try {
-            $implementedInterfaces = class_implements($class);
+        /** @phpstan-ignore-next-line */
+        $implementedInterfaces = class_implements($class);
 
-            /* @var class-string[] $implementedInterfaces */
-            return in_array($this->interface, $implementedInterfaces, true);
-        } catch (SplException) {
+        if ($implementedInterfaces === false) {
             return false;
         }
+
+        /* @var class-string[] $implementedInterfaces */
+        return in_array($this->interface, $implementedInterfaces, true);
     }
 }

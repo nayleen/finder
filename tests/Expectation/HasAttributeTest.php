@@ -30,7 +30,7 @@ class TestClassWithValue
 /**
  * @internal
  */
-class HasAttributeTest extends TestCase
+final class HasAttributeTest extends TestCase
 {
     /**
      * @test

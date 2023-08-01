@@ -11,7 +11,7 @@ use stdClass;
 /**
  * @internal
  */
-class ExtendsClassTest extends TestCase
+final class ExtendsClassTest extends TestCase
 {
     /**
      * @test

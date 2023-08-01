@@ -4,11 +4,12 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder\Engine;
 
-use Generator;
-use Nayleen\Finder\Expectation\Expectation;
+use Nayleen\Finder\Engine;
+use Nayleen\Finder\Expectation;
 
 /**
- * @template T of object
+ * @template-covariant T of object
+ * @template-implements Engine<T>
  */
 abstract class AbstractEngine implements Engine
 {
@@ -18,9 +19,9 @@ abstract class AbstractEngine implements Engine
     abstract protected function classes(): iterable;
 
     /**
-     * @return Generator<class-string<T>>
+     * @return iterable<class-string<T>>
      */
-    final public function find(Expectation $expectation): Generator
+    final public function find(Expectation $expectation): iterable
     {
         foreach ($this->classes() as $class) {
             if ($expectation($class)) {

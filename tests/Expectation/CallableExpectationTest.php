@@ -10,7 +10,7 @@ use stdClass;
 /**
  * @internal
  */
-class CallableExpectationTest extends TestCase
+final class CallableExpectationTest extends TestCase
 {
     /**
      * @test

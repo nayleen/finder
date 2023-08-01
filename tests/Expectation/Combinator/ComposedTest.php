@@ -11,7 +11,7 @@ use stdClass;
 /**
  * @internal
  */
-class ComposedTest extends TestCase
+final class ComposedTest extends TestCase
 {
     /**
      * @test

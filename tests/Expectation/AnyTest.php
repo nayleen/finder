@@ -7,22 +7,20 @@ namespace Nayleen\Finder\Expectation;
 use Nayleen\Finder\Expectation\Combinator\Not;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Throwable;
 
 /**
  * @internal
  */
-final class IsInstantiableTest extends TestCase
+final class AnyTest extends TestCase
 {
     /**
      * @test
      */
     public function expectation_works(): void
     {
-        $expectation = new IsInstantiable();
+        $expectation = new Any();
 
         self::assertTrue($expectation(stdClass::class));
-        self::assertFalse($expectation(Throwable::class));
     }
 
     /**
@@ -30,9 +28,8 @@ final class IsInstantiableTest extends TestCase
      */
     public function inversion_works(): void
     {
-        $inversion = new Not(new IsInstantiable());
+        $expectation = new Not(new Any());
 
-        self::assertFalse($inversion(stdClass::class));
-        self::assertTrue($inversion(Throwable::class));
+        self::assertFalse($expectation(stdClass::class));
     }
 }

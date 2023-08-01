@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder\Expectation\Combinator;
 
+use Nayleen\Finder\Expectation;
 use Nayleen\Finder\Expectation\AbstractExpectation;
-use Nayleen\Finder\Expectation\Expectation;
 
 final class Composed extends AbstractExpectation
 {

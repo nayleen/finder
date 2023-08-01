@@ -5,23 +5,90 @@ declare(strict_types = 1);
 namespace Nayleen\Finder\Engine;
 
 use Composer\Autoload\ClassLoader;
+use Safe;
+use Symfony\Component\Finder\Finder;
 
 /**
- * @template T of object
+ * @template-covariant T of object
  * @template-extends AbstractEngine<T>
  */
 final class ComposerEngine extends AbstractEngine
 {
     /**
-     * @param ClassLoader[] $classLoaders
+     * @var ClassLoader[]
      */
-    public function __construct(private readonly array $classLoaders)
+    private readonly array $classLoaders;
+
+    /**
+     * @param ClassLoader[]|null $classLoaders
+     */
+    public function __construct(?array $classLoaders = null)
     {
+        $classLoaders ??= ClassLoader::getRegisteredLoaders();
+        assert(count($classLoaders) > 0);
+
+        $this->classLoaders = $classLoaders;
     }
 
-    public static function create(): self
+    /**
+     * @return iterable<class-string<T>>
+     */
+    private function load(): iterable
     {
-        return new self(ClassLoader::getRegisteredLoaders());
+        $oldErrorHandler = set_error_handler(static fn () => true);
+
+        try {
+            foreach ($this->classLoaders as $classLoader) {
+                foreach ($classLoader->getClassMap() as $class => $path) {
+                    /**
+                     * @var class-string<T> $class
+                     */
+                    yield $class;
+                }
+
+                if ($classLoader->isClassMapAuthoritative()) {
+                    continue;
+                }
+
+                $prefixes = array_merge(
+                    $classLoader->getPrefixesPsr4() ?? [],
+                    $classLoader->getPrefixes() ?? [],
+                );
+
+                foreach ($prefixes as $namespace => $paths) {
+                    $finder = Finder::create()
+                        ->in($paths)
+                        ->name('*.php');
+
+                    foreach ($finder as $path => $file) {
+                        $relativePathName = $file->getRelativePathname();
+                        $className = basename($relativePathName, '.php');
+                        $class = sprintf(
+                            '%s%s',
+                            $namespace,
+                            str_replace(
+                                [DIRECTORY_SEPARATOR, '.php'],
+                                ['\\', ''],
+                                $relativePathName,
+                            ),
+                        );
+
+                        $classNameInFileMatches = Safe\preg_match("#class\\s+{$className}\\s+#", $file->getContents());
+
+                        if ($classNameInFileMatches !== 1) {
+                            continue;
+                        }
+
+                        /**
+                         * @var class-string<T> $class
+                         */
+                        yield $class;
+                    }
+                }
+            }
+        } finally {
+            set_error_handler($oldErrorHandler);
+        }
     }
 
     /**
@@ -29,14 +96,9 @@ final class ComposerEngine extends AbstractEngine
      */
     protected function classes(): iterable
     {
-        foreach ($this->classLoaders as $classLoader) {
-            /** @var class-string[] $classes */
-            $classes = array_keys($classLoader->getClassMap());
-
-            foreach ($classes as $class) {
-                /** @var class-string<T> $class */
-                yield $class;
-            }
+        foreach ($this->load() as $class) {
+            /** @var class-string<T> $class */
+            yield $class;
         }
     }
 }

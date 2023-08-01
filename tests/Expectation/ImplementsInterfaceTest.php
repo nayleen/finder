@@ -4,14 +4,16 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder\Expectation;
 
+use Nayleen\Finder\Expectation;
 use Nayleen\Finder\Expectation\Combinator\Not;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Throwable;
 
 /**
  * @internal
  */
-class ImplementsInterfaceTest extends TestCase
+final class ImplementsInterfaceTest extends TestCase
 {
     /**
      * @test
@@ -23,6 +25,21 @@ class ImplementsInterfaceTest extends TestCase
         // this might be my tastiest dog food yet
         self::assertTrue($expectation(ImplementsInterface::class));
         self::assertFalse($expectation(stdClass::class));
+    }
+
+    /**
+     * @test
+     */
+    public function failures_from_class_loading_fail_expectation(): void
+    {
+        $expectation = new ImplementsInterface(Throwable::class);
+
+        /**
+         * @var class-string $interface
+         */
+        $interface = '\This\Does\Not\Exist';
+
+        self::assertFalse($expectation($interface));
     }
 
     /**

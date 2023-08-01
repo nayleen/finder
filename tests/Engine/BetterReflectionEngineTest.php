@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder\Engine;
 
-use Nayleen\Finder\Expectation\Expectation;
+use Nayleen\Finder\Expectation;
 use PHPUnit\Framework\TestCase;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
@@ -13,7 +13,7 @@ use stdClass;
 /**
  * @internal
  */
-class BetterReflectionEngineTest extends TestCase
+final class BetterReflectionEngineTest extends TestCase
 {
     /**
      * @test
@@ -32,7 +32,7 @@ class BetterReflectionEngineTest extends TestCase
         $engine = new BetterReflectionEngine($sourceLocator);
         $generator = $engine->find($expectation);
 
-        self::assertSame([], iterator_to_array($generator));
+        self::assertSame([], [...$generator]);
     }
 
     /**
@@ -52,7 +52,7 @@ class BetterReflectionEngineTest extends TestCase
         $engine = new BetterReflectionEngine($sourceLocator);
         $generator = $engine->find($expectation);
 
-        self::assertSame([stdClass::class], iterator_to_array($generator));
+        self::assertSame([stdClass::class], [...$generator]);
     }
 
     /**
@@ -69,6 +69,6 @@ class BetterReflectionEngineTest extends TestCase
         $engine = new BetterReflectionEngine($sourceLocator);
         $generator = $engine->find($expectation);
 
-        self::assertSame([], iterator_to_array($generator));
+        self::assertSame([], [...$generator]);
     }
 }

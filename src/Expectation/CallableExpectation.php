@@ -19,9 +19,6 @@ final class CallableExpectation extends AbstractExpectation
         $this->callable = $callable;
     }
 
-    /**
-     * @param class-string $class
-     */
     public function __invoke(string $class): bool
     {
         return ($this->callable)($class);
