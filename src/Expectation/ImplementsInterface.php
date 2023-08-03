@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Nayleen\Finder\Expectation;
 
 use Nayleen\Finder\Expectation;
+use Safe;
+use Throwable;
 
 final class ImplementsInterface implements Expectation
 {
@@ -18,14 +20,13 @@ final class ImplementsInterface implements Expectation
 
     public function __invoke(string $class): bool
     {
-        /** @phpstan-ignore-next-line */
-        $implementedInterfaces = class_implements($class);
+        try {
+            $implementedInterfaces = Safe\class_implements($class);
 
-        if ($implementedInterfaces === false) {
+            /* @var class-string[] $implementedInterfaces */
+            return in_array($this->interface, $implementedInterfaces, true);
+        } catch (Throwable) {
             return false;
         }
-
-        /* @var class-string[] $implementedInterfaces */
-        return in_array($this->interface, $implementedInterfaces, true);
     }
 }

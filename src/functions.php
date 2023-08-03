@@ -5,8 +5,6 @@ declare(strict_types = 1);
 namespace Nayleen\Finder;
 
 use Nayleen\Finder\Engine\BetterReflectionEngine;
-use Nayleen\Finder\Engine\ComposerEngine;
-use Roave\BetterReflection\BetterReflection;
 
 /**
  * @param class-string<Engine>|null $engine
@@ -20,12 +18,7 @@ function defaultEngine(?string $engine = null): Engine
         $defaultEngine = $engine;
     }
 
-    // @codeCoverageIgnoreStart
-    $defaultEngine ??= class_exists(BetterReflection::class)
-        ? BetterReflectionEngine::class
-        : ComposerEngine::class;
-    // @codeCoverageIgnoreEnd
-
+    $defaultEngine ??= BetterReflectionEngine::class;
     assert(is_a($defaultEngine, Engine::class, true));
 
     return new ($defaultEngine)();
