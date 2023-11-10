@@ -16,8 +16,7 @@ final class HasAttribute extends ReflectionExpectation
     public function __construct(
         private readonly string $attribute,
         private readonly mixed $expectedValue = null,
-    ) {
-    }
+    ) {}
 
     public function __invoke(string $class): bool
     {

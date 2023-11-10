@@ -21,9 +21,7 @@ final class MemoizedEngine extends AbstractEngine
     /**
      * @param Engine<T> $other
      */
-    public function __construct(private readonly Engine $other)
-    {
-    }
+    public function __construct(private readonly Engine $other) {}
 
     /**
      * @return iterable<class-string<T>>

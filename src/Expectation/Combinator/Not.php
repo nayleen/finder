@@ -9,9 +9,7 @@ use Nayleen\Finder\Expectation\AbstractExpectation;
 
 final class Not extends AbstractExpectation
 {
-    public function __construct(private readonly Expectation $other)
-    {
-    }
+    public function __construct(private readonly Expectation $other) {}
 
     public function __invoke(string $class): bool
     {

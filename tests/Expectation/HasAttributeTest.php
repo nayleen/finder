@@ -12,20 +12,14 @@ use stdClass;
 #[Attribute(Attribute::TARGET_CLASS)]
 class TestAttribute
 {
-    public function __construct(public ?string $value = null)
-    {
-    }
+    public function __construct(public ?string $value = null) {}
 }
 
 #[TestAttribute]
-class TestClass
-{
-}
+class TestClass {}
 
 #[TestAttribute('test')]
-class TestClassWithValue
-{
-}
+class TestClassWithValue {}
 
 /**
  * @internal

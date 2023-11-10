@@ -12,8 +12,7 @@ final class Composed extends AbstractExpectation
     public function __construct(
         private readonly Expectation $a,
         private readonly Expectation $b,
-    ) {
-    }
+    ) {}
 
     public function __invoke(string $class): bool
     {
