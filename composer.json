@@ -1,44 +1,44 @@
 {
-    "name": "nayleen/finder",
-    "description": "Yet another class finder implementation.",
-    "license": "MIT",
-    "require": {
-        "php": ">=8.1",
-        "nayleen/attribute": "^3",
-        "roave/better-reflection": "^6"
+  "name": "nayleen/finder",
+  "description": "Yet another class finder implementation.",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "nayleen/attribute": "^3",
+    "roave/better-reflection": "^6"
+  },
+  "require-dev": {
+    "nayleen/codestandard": "dev-latest",
+    "nayleen/development-dependencies": "^3.3",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nayleen\\Finder\\": "src/"
     },
-    "require-dev": {
-        "nayleen/codestandard": "dev-latest",
-        "nayleen/development-dependencies": "^3",
-        "roave/security-advisories": "dev-latest"
-    },
-    "autoload": {
-        "psr-4": {
-            "Nayleen\\Finder\\": "src/"
-        },
-        "files": [
-            "src/functions.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Nayleen\\Finder\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "ergebnis/composer-normalize": true,
-            "phpstan/extension-installer": true
-        },
-        "lock": false,
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "0.2.x-dev"
-        }
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nayleen\\Finder\\": "tests/"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true
+    },
+    "lock": false,
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "0.2.x-dev"
+    }
+  }
 }
