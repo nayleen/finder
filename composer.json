@@ -4,7 +4,6 @@
   "license": "MIT",
   "require": {
     "php": ">=8.1",
-    "nayleen/attribute": "^3",
     "roave/better-reflection": "^6"
   },
   "require-dev": {
@@ -38,7 +37,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-main": "0.2.x-dev"
+      "dev-main": "1.1.x-dev"
     }
   }
 }

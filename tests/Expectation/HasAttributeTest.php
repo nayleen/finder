@@ -18,25 +18,11 @@ class TestAttribute
 #[TestAttribute]
 class TestClass {}
 
-#[TestAttribute('test')]
-class TestClassWithValue {}
-
 /**
  * @internal
  */
 final class HasAttributeTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function expectation_with_value_works(): void
-    {
-        $expectation = new HasAttribute(TestAttribute::class, 'test');
-
-        self::assertTrue($expectation(TestClassWithValue::class));
-        self::assertFalse($expectation(TestClass::class));
-    }
-
     /**
      * @test
      */
@@ -46,17 +32,6 @@ final class HasAttributeTest extends TestCase
 
         self::assertTrue($expectation(TestClass::class));
         self::assertFalse($expectation(stdClass::class));
-    }
-
-    /**
-     * @test
-     */
-    public function inversion_with_value_works(): void
-    {
-        $expectation = new Not(new HasAttribute(TestAttribute::class, 'test'));
-
-        self::assertFalse($expectation(TestClassWithValue::class));
-        self::assertTrue($expectation(TestClass::class));
     }
 
     /**
