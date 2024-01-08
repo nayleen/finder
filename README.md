@@ -9,8 +9,7 @@ The finder comes with two different sets of classes: `Engine`s and `Expectation`
 
 ### Engines
 Currently supported `Engine` implementations:
-- ComposerEngine (simpler to use, only finds autoloadable classes)
-- [BetterReflectionEngine](https://github.com/Roave/BetterReflection) (optional, can find built-in and load classes from strings)
+- [BetterReflectionEngine](https://github.com/Roave/BetterReflection) (can find built-in and load classes from strings)
 
 `Engine`s provide iterators over class strings which can then be filtered using `Expectation`s.
 
@@ -23,7 +22,9 @@ Building blocks (located in `Nayleen\Finder\Expectation` sub-namespaces):
 - `Combinator\Not` - negates a wrapped expectation
 
 Concrete implementations:
+- `Any`
 - `CallableExpectation` - wraps a callable with signature: `callable(class-string): bool`
 - `ExtendsClass`
+- `HasAttribute`
 - `ImplementsInterface`
 - `IsInstantiable`
