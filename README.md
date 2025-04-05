@@ -10,6 +10,7 @@ The finder comes with two different sets of classes: `Engine`s and `Expectation`
 ### Engines
 Currently supported `Engine` implementations:
 - [BetterReflectionEngine](https://github.com/Roave/BetterReflection) (can find built-in and load classes from strings)
+- [ComposerEngine](https://github.com/Roave/BetterReflection) (can find built-in and load classes from strings)
 
 `Engine`s provide iterators over class strings which can then be filtered using `Expectation`s.
 

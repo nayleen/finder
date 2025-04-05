@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Nayleen\Finder;
 
-use Nayleen\Finder\Engine\BetterReflectionEngine;
+use Nayleen\Finder\Engine\ComposerEngine;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,7 +19,7 @@ final class DefaultEngineFunctionTest extends TestCase
      */
     public function can_fetch_default_engine(): void
     {
-        self::assertInstanceOf(BetterReflectionEngine::class, defaultEngine());
+        self::assertInstanceOf(ComposerEngine::class, defaultEngine());
     }
 
     /**
@@ -27,7 +27,7 @@ final class DefaultEngineFunctionTest extends TestCase
      */
     public function can_set_default_engine(): void
     {
-        $engine = defaultEngine(BetterReflectionEngine::class);
-        self::assertInstanceOf(BetterReflectionEngine::class, $engine);
+        $engine = defaultEngine(ComposerEngine::class);
+        self::assertInstanceOf(ComposerEngine::class, $engine);
     }
 }
