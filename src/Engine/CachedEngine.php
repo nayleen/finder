@@ -14,7 +14,7 @@ use Safe;
  */
 final class CachedEngine extends AbstractEngine
 {
-    private readonly AbstractEngine $cache; // @phpstan-ignore-line
+    private readonly AbstractEngine $cache;
 
     /**
      * @var non-empty-string
@@ -24,7 +24,19 @@ final class CachedEngine extends AbstractEngine
     /**
      * @param Engine<T> $fallback
      */
-    public function __construct(private readonly Engine $fallback = new ComposerEngine()) {}
+    public function __construct(private readonly Engine $fallback = new ComposerEngine())
+    {
+        $file = Dumper::file();
+
+        if (!self::ignoreDump() && file_exists($file)) {
+            $classes = Safe\json_decode(Safe\file_get_contents($file), true);
+            assert(is_array($classes));
+
+            $this->cache = new ArrayEngine($classes);
+        } else {
+            $this->cache = new MemoizedEngine($this->fallback);
+        }
+    }
 
     private static function ignoreDump(): bool
     {
@@ -39,24 +51,9 @@ final class CachedEngine extends AbstractEngine
      */
     protected function classes(): iterable
     {
-        if (isset($this->cache)) {
-            foreach ($this->cache->classes() as $class) {
-                /** @var class-string<T> $class */
-                yield $class;
-            }
+        foreach ($this->cache->classes() as $class) {
+            /** @var class-string<T> $class */
+            yield $class;
         }
-
-        $file = Dumper::file();
-
-        if (!self::ignoreDump() && file_exists($file)) {
-            $classes = Safe\json_decode(Safe\file_get_contents($file), true);
-            assert(is_array($classes));
-
-            $this->cache = new ArrayEngine($classes); // @phpstan-ignore-line
-        } else {
-            $this->cache = new MemoizedEngine($this->fallback); // @phpstan-ignore-line
-        }
-
-        return $this->classes();
     }
 }
