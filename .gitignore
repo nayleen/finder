@@ -1,6 +1,6 @@
 .idea/
 coverage/
 vendor/
-docker-compose.override.yaml
+compose.override.yaml
 phpstan.neon
 phpunit.xml
