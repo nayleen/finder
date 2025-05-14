@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Nayleen\Finder;
 
 use IteratorAggregate;
+use Nayleen\Finder\Engine\CachedEngine;
 use Traversable;
 
 /**
@@ -14,19 +15,9 @@ use Traversable;
 abstract class Finder implements IteratorAggregate
 {
     /**
-     * @var Engine<T>
+     * @param Engine<T> $engine
      */
-    private readonly Engine $engine;
-
-    public function __construct(?Engine $engine = null)
-    {
-        $engine ??= defaultEngine();
-
-        /**
-         * @var Engine<T> $engine
-         */
-        $this->engine = $engine;
-    }
+    public function __construct(private readonly Engine $engine = new CachedEngine()) {}
 
     abstract protected function expectation(): Expectation;
 
